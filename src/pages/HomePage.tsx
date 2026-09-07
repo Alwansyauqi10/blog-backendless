@@ -1,7 +1,10 @@
 import Loading from "@/components/loading";
+import { Button } from "@/components/ui/button";
 import { axiosInstance } from "@/lib/axios";
+import { useAuth } from "@/stores/useAuth";
 import type { Blog } from "@/types/blog";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 function HomePage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -51,11 +54,13 @@ function HomePage() {
         <div className="grid grid-cols-3 gap-16">
           {blogs.map((blog) => {
             return (
-              <div key={blog.objectId} className="border border-black">
-                <p className="text-lg font-bold">{blog.title}</p>
-                <p>{blog.description}</p>
-                <p>{blog.author}</p>
-              </div>
+              <Link key={blog.objectId} to={`/blogs/${blog.objectId}`}>
+                <div className="border border-black p-8">
+                  <p className="text-lg font-bold">{blog.title}</p>
+                  <p>{blog.description}</p>
+                  <p>{blog.author}</p>
+                </div>
+              </Link>
             );
           })}
         </div>
